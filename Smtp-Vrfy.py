@@ -119,7 +119,7 @@ class SMTP_emn:
                                         print R+"[+]", self.args.target,"....",name ,"............[Exists]"+W
                                     
                            else:
-                               print R+"\n\t*********END**OF**WORLD**LIST*********" +W                                          
+                               print R+"\n\t*********END**OF**WORD**LIST*********" +W                                          
                                with open('SMTP_'+self.args.target,'r') as self.append:
                                             self.append =self.append.read()
                                             print self.append
