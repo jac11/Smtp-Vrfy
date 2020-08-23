@@ -59,25 +59,26 @@ class SMTP_emn:
                     sock.settimeout(3)
                     result = sock.connect_ex((self.args.target, port))                    
                     if result ==0:
-                      print R+"##-port",port," is open"+W 
-                      self.port= port
+                       print R+"##-port",port," is open"+W 
+                       self.port= port
                     else:
-                      print  "##-port",port," is closed"
+                       print  "##-port",port," is closed"
                if self.args.port:
-                  self.port = self.args.port       
+                       self.port = self.args.port
+                       print Y+"##-specific port",str(self.port)+W     
                print"-"*40        
             except Exception :
-                    print "all default port are closed"
-                    exit()                           
+                     print "all default port are closed"
+                     exit()                           
        def connect(self):
            try:
                self.socke_25 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                self.socke_25.settimeout(5)            
                connect =  self.socke_25.connect((self.args.target ,int(self.port)))
            except Exception :
-                    print "##-all default port are closed"
-                    print "##-try -p to use specific port"
-                    exit()                  
+                     print "##-all default port are closed"
+                     print "##-try -p to use specific port"
+                     exit()                  
        def  socket_25(self): 
                      data = self.socke_25.recv(1024) 
                      print Y+"[*]##-Enumeration start in  port "+W,R+str(self.port)+W 
