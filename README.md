@@ -35,7 +35,7 @@ optional arguments:
 
 [*] host name     |................ 10.195.100.229
 [*] user vrfy     |................ None
-[*] users list    |................ ./lest
+[*] users list    |................ /home/jac/Desktop/code/wordlist.txt
 [*] ping host     |................ True
 [*] host Status   |................ Online
 [*] default ports |................ 25-465-587
