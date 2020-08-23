@@ -135,7 +135,7 @@ class SMTP_emn:
        def parser(self):
        
            parser = argparse.ArgumentParser( description="Usage: <OPtion> <arguments> ")
-           parser1 = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
+           parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
 	   parser.add_argument( '-t',"--target"   ,metavar='' , action=None  ,help ="Target ip address or name ")
 	   parser.add_argument( '-u',"--user"   ,metavar='' , action=None  ,help ="for only one username")
 	   parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist list same like rockyou.txt ")
