@@ -1,6 +1,5 @@
 # Smtp-Vrfy
 * Smtp-Vrfy python 2.7 
-* 
 ## how to use 
 * git clone https://github.com/jac11/Smtp-Vrfy.git
 * chmod +x Smtp-Vrfy.py
@@ -30,8 +29,8 @@ optional arguments:
 * specific port use option -p 
 * ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt -p 2525
 ```
- ~#-----------------------------------------------------------#
-|                     SMTP-VRFY                              |
+#-----------------------------------------------------------#
+|                     SMTP-VRFY                             |
 #-----------------------------------------------------------#
 
 [*] host name     |................ 10.195.100.229
