@@ -90,7 +90,10 @@ class SMTP_emn:
                         final=  self.socke_25.recv(1024)                   
                         if "550" in final :
                             print "[-]", self.args.target,"....",self.args.user ,"............[NOT Exists]"
-                            exit()
+                            exit() 	
+		        elif "I'll try my best" in final:
+                             print Y+"[*]Target",self.args.target," Not vulnerable..."+W
+                             exit()	
                         else:
                            if "252" in final :
                               print R+"[+]", self.args.target,"....",self.args.user ,"............[Exists]"+W
@@ -138,7 +141,7 @@ class SMTP_emn:
            parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
 	   parser.add_argument( '-t',"--target"   ,metavar='' , action=None  ,help ="Target ip address or name ")
 	   parser.add_argument( '-u',"--user"   ,metavar='' , action=None  ,help ="for only one username")
-	   parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist list same like rockyou.txt ")
+	   parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist same like rockyou.txt ")
 	   parser.add_argument( '-p',"--port"   ,metavar='' , action=None  ,help ="use  specific port ",type=int)
 	   self.args = parser.parse_args()
 	   if len(sys.argv) != 1:
