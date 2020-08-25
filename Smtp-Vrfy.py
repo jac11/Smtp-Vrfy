@@ -144,7 +144,7 @@ class SMTP_emn:
 	   parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist same like rockyou.txt ")
 	   parser.add_argument( '-p',"--port"   ,metavar='' , action=None  ,help ="use  specific port ",type=int)
 	   self.args = parser.parse_args()
-	   if len(sys.argv) != 3:
+	   if len(sys.argv)!=1 and len(sys.argv) != 3:
                pass
            else:
                parser.print_help()
