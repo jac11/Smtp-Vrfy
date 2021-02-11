@@ -98,6 +98,8 @@ class SMTP_emn:
                             exit() 	
                         elif "I'll try my best" in final:
                              print Y+"[*]Target",self.args.target," Not vulnerable..."+W
+			     if os.path.exists('SMTP_'+self.args.target):
+                                os.remove('SMTP_'+self.args.target)
                              exit()	
                         else:
                            if "252" in final :
@@ -117,6 +119,8 @@ class SMTP_emn:
                                 name=''.join(name)
                                 if "I'll try my best" in final:
                                     print Y+"[*]Target",self.args.target," Not vulnerable..."+W
+				    if os.path.exists('SMTP_'+self.args.target):
+                                       os.remove('SMTP_'+self.args.target)
                                     exit()
                                 elif "550" in final :       
                                     print "[-]", self.args.target,"....",name ,"............[NOT Exists]"                         
