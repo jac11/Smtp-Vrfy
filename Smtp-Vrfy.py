@@ -96,7 +96,7 @@ class SMTP_emn:
                         if "550" in final :
                             print "[-]", self.args.target,"....",self.args.user ,"............[NOT Exists]"
                             exit() 	
-		        elif "I'll try my best" in final:
+                        elif "I'll try my best" in final:
                              print Y+"[*]Target",self.args.target," Not vulnerable..."+W
                              exit()	
                         else:
@@ -141,15 +141,14 @@ class SMTP_emn:
       
 
        def parser(self):
-       
            parser = argparse.ArgumentParser( description="Usage: <OPtion> <arguments> ")
-           parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
-	   parser.add_argument( '-t',"--target"   ,metavar='' , action=None  ,help ="Target ip address or name ")
+	   parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
+           parser.add_argument( '-t',"--target"   ,metavar='' , action=None  ,help ="Target ip address or name ")
 	   parser.add_argument( '-u',"--user"   ,metavar='' , action=None  ,help ="for only one username")
-	   parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist same like rockyou.txt ")
+           parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist same like rockyou.txt ")
 	   parser.add_argument( '-p',"--port"   ,metavar='' , action=None  ,help ="use  specific port ",type=int)
-	   self.args = parser.parse_args()
-	   if len(sys.argv)!=1 and len(sys.argv) != 3:
+           self.args = parser.parse_args()
+           if len(sys.argv)!=1 and len(sys.argv) != 3:
                pass
            else:
                parser.print_help()
