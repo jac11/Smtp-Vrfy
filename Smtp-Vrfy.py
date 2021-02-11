@@ -85,6 +85,8 @@ class SMTP_emn:
                      except socket.timeout:
                          time.sleep(2)
                          print R+"Server "+W+Y+self.args.target+W+R+" Time out..."+W+'\n'
+			 if os.path.exists('SMTP_'+self.args.target):
+                            os.remove('SMTP_'+self.args.target)
                          exit()    
                      print Y+"[*]##-Enumeration start in  port "+W,R+str(self.port)+W 
                      print"-"*40                       
