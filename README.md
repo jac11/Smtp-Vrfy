@@ -1,5 +1,6 @@
 # Smtp-Vrfy
-* Smtp-Vrfy python 2.7 
+* Smtp-Vrfy python 2.7.16 
+* Smtp_Vrfy_P3 python 3.8.6
 ## how to use 
 * git clone https://github.com/jac11/Smtp-Vrfy.git
 * chmod +x Smtp-Vrfy.py
