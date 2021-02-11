@@ -80,7 +80,12 @@ class SMTP_emn:
                      print "##-try -p to use specific port"
                      exit()                  
        def  socket_25(self): 
-                     data = self.socke_25.recv(1024) 
+                     try:
+                        data = self.socke_25.recv(1024)
+                     except socket.timeout:
+                         time.sleep(2)
+                         print R+"Server "+W+Y+self.args.target+W+R+" Time out..."+W+'\n'
+                         exit()    
                      print Y+"[*]##-Enumeration start in  port "+W,R+str(self.port)+W 
                      print"-"*40                       
                      if self.args.user:
