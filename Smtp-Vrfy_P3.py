@@ -68,17 +68,20 @@ class SMTP_emn:
                        print ( Y+"##-specific port",str(self.port)+W )    
                print ("-"*40 )      
             except Exception :
-                     print ( "all default port are closed")
-                     exit()                           
+                    pass                    
        def connect(self):
            try:
                self.socke_25 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                self.socke_25.settimeout(5)            
                connect =  self.socke_25.connect((self.args.target ,int(self.port)))
            except Exception :
-                     print ( "##-all default port are closed")
-                     print ( "##-try -p to use specific port")
-                     exit()                  
+                   try:
+                      if  self.port :
+                           print Y+"## specific port "+W+R+str(self.port)+W+Y+" it's closed"+W+'\n'
+                           exit()
+                   except AttributeError:        
+                          print R+"##:all default ports are closed"+W
+                          print Y+"##:try -p to use specific port"+W     
        def  socket_25(self): 
                      try:
                         data = self.socke_25.recv(1024)
