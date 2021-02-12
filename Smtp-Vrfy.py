@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 
 import socket 
@@ -53,20 +53,23 @@ class SMTP_emn:
             try: 
                print"port scan start......." 
                print Y+"="*25+W 
-               PortList= [25,465,587]           
-               for port in PortList:
-                    sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                    sock.settimeout(3)
-                    result = sock.connect_ex((self.args.target, port))                    
-                    if result ==0:
-                       print R+"##-port",port," is open"+W 
-                       self.port= port
-                    else:
-                       print  "##-port",port," is closed"
+               PortList= [25,465,587] 
                if self.args.port:
-                       self.port = self.args.port
-                       print Y+"##-specific port",str(self.port)+W     
-               print"-"*40        
+                   self.port = self.args.port
+                   print Y+"##-specific port",str(self.port)+W 
+                   print"-"*40
+               else:               
+                   for port in PortList:
+                       sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                       sock.settimeout(3)
+                       result = sock.connect_ex((self.args.target, port))                    
+                       if result ==0:
+                          print R+"##-port",port," is open"+W 
+                          self.port= port
+                       else:
+                         print  "##-port",port," is closed"
+                 
+                   print"-"*40        
             except Exception :
                     pass                    
        def connect(self):
@@ -81,7 +84,8 @@ class SMTP_emn:
                            exit()
                    except AttributeError:        
                           print R+"##:all default ports are closed"+W
-                          print Y+"##:try -p to use specific port"+W
+                          print Y+"##:try -p to use specific port"+W+'\n'
+                          exit()
        def  socket_25(self): 
                      try:
                         data = self.socke_25.recv(1024)
