@@ -80,10 +80,14 @@ class SMTP_emn:
                    try:
                       if  self.port :
                            print (Y+"## specific port "+W+R+str(self.port)+W+Y+" it's closed"+W+'\n')
+                           if os.path.exists('SMTP_'+self.args.target):
+                              os.remove('SMTP_'+self.args.target)
                            exit()
                    except AttributeError:        
                           print (R+"##:all default ports are closed"+W)
                           print( Y+"##:try -p to use specific port"+W+'\n')
+                          if os.path.exists('SMTP_'+self.args.target):
+                             os.remove('SMTP_'+self.args.target)
                           exit() 
        def  socket_25(self): 
                      try:
