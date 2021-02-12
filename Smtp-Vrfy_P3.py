@@ -85,6 +85,8 @@ class SMTP_emn:
                      except socket.timeout:
                          time.sleep(2)
                          print ( R+"Server "+W+Y+self.args.target+W+R+" Time out..."+W+'\n')
+                         if os.path.exists('SMTP_'+self.args.target):
+                            os.remove('SMTP_'+self.args.target)
                          exit()    
                      print ( Y+"[*]##-Enumeration start in  port "+W,R+str(self.port)+W )
                      print ("-"*40 )                      
@@ -98,6 +100,8 @@ class SMTP_emn:
                             exit() 	
                         elif "I'll try my best".encode()in final:
                              print ( Y+"[*]Target",self.args.target," Not vulnerable..."+W)
+                             if os.path.exists('SMTP_'+self.args.target):
+                                os.remove('SMTP_'+self.args.target)
                              exit()	
                         else:
                            if "252".encode() in final :
@@ -117,6 +121,8 @@ class SMTP_emn:
                                 name=''.join(name)
                                 if "I'll try my best".encode()  in final:
                                     print ( Y+"[*]Target",self.args.target," Not vulnerable..."+W)
+                                    if os.path.exists('SMTP_'+self.args.target):
+                                       os.remove('SMTP_'+self.args.target)
                                     exit()
                                 elif "550".encode() in final :       
                                     print ( "[-]", self.args.target,"....",name ,"............[NOT Exists]" )                       
