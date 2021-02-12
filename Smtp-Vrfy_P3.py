@@ -81,7 +81,8 @@ class SMTP_emn:
                            exit()
                    except AttributeError:        
                           print R+"##:all default ports are closed"+W
-                          print Y+"##:try -p to use specific port"+W     
+                          print Y+"##:try -p to use specific port"+W   
+                          exit()
        def  socket_25(self): 
                      try:
                         data = self.socke_25.recv(1024)
