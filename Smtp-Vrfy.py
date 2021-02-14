@@ -104,6 +104,7 @@ class SMTP_emn:
                      if self.args.user:
                         self.socke_25.send('HELO ' + self.args.target + '\r\n')
                         redata =  self.socke_25.recv(1024)
+			self.socke_25.send('STARTTLS'+'\n')
                         self.socke_25.send('VRFY ' + self.args.user +'\r\n')                                        
                         final=  self.socke_25.recv(1024)                   
                         if "550" in final :
@@ -125,7 +126,8 @@ class SMTP_emn:
                            for self.line in self.list:  
                                 self.socke_25.send('HELO '+'127.0.0.1 '+ '\r\n')
                                 redata =  self.socke_25.recv(1024) 
-                                time.sleep(1)                                                                        
+                                time.sleep(1)  
+				self.socke_25.send('STARTTLS'+'\n')
                                 self.socke_25.send('VRFY '+ self.line  )                                                       
                                 final=  self.socke_25.recv(1024)
                                 name=self.line.split()
