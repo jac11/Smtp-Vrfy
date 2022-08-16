@@ -104,11 +104,11 @@ class SMTP_emn:
                      if self.args.user:
                         self.socke_25.send('HELO ' + self.args.target + '\r\n')
                         redata =  self.socke_25.recv(1024)
-			if self.port==25 or not self,args.SSL:
+			if self.port==25 or not self.args.SSL:
                               pass
                         else: 
                              if self.port ==465 or self.port ==587 or self.args.SSL:
-		                self.socke_25.send('STARTTLS'+'\n')
+                                self.socke_25.send('STARTTLS'+'\n')
                         self.socke_25.send('VRFY ' + self.args.user +'\r\n')                                        
                         final=  self.socke_25.recv(1024)                   
                         if "550" in final :
@@ -130,11 +130,11 @@ class SMTP_emn:
                            for self.line in self.list:  
                                 self.socke_25.send('HELO '+'127.0.0.1 '+ '\r\n')
                                 redata =  self.socke_25.recv(1024)
-                                if self.port==25 or not self,args.SSL:
+                                if self.port==25 or not self.args.SSL:
                                    pass
                                 else: 
                                      if self.port ==465 or self.port ==587 or self.args.SSL:
-				        self.socke_25.send('STARTTLS'+'\n')
+                                        self.socke_25.send('STARTTLS'+'\n')
                                 time.sleep(.45)
                                 self.socke_25.send('VRFY '+ self.line  )                                                       
                                 final=  self.socke_25.recv(1024)
@@ -159,7 +159,7 @@ class SMTP_emn:
                                             self.append =self.append.write("[*] "+name+'\n')
                                         print R+"[+]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[  Exists  ]"+W   
                            else:
-                               print R+"\n\t*********END**OF**WORD**LIST*********" +W                                          
+                               print R+"\n\t*********END**OF**WORD**LIST*********" +W                                       
                                with open('SMTP_'+self.args.target,'r') as self.append:
                                             self.append =self.append.read()
                                             print self.append

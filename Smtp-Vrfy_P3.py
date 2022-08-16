@@ -103,11 +103,11 @@ class SMTP_emn:
                      if self.args.user:
                         self.socke_25.sendall('HELO '.encode() + self.args.target.encode()+ '\r\n'.encode())
                         redata =  self.socke_25.recv(1024)
-                        if self.port==25 or not self,args.SSL:
+                        if self.port==25 or not self.args.SSL:
                               pass
                         else: 
                              if self.port ==465 or self.port ==587 or self.args.SSL:
-		                self.socke_25.send('STARTTLS'+'\n')
+                                self.socke_25.send('STARTTLS'+'\n')
                         self.socke_25.send('VRFY '.encode() + self.args.user.encode() +'\r\n'.encode())                                        
                         final= self.socke_25.recv(1024)                  
                         if "550".encode() in final :
@@ -129,11 +129,11 @@ class SMTP_emn:
                            for self.line in self.list:  
                                 self.socke_25.sendall('HELO '.encode()+'127.0.0.1 '.encode()+ '\r\n'.encode())
                                 redata =  self.socke_25.recv(1024) 
-                                if self.port==25 or not self,args.SSL:
+                                if self.port==25 or not self.args.SSL:
                                    pass
                                 else: 
                                      if self.port ==465 or self.port ==587 or self.args.SSL:
-				        self.socke_25.send('STARTTLS'+'\n')
+                                        self.socke_25.send('STARTTLS'+'\n')
                                 time.sleep(0.45)     
                                 self.socke_25.send('VRFY '.encode() + self.line.encode() )                                                       
                                 final=  self.socke_25.recv(1024)
