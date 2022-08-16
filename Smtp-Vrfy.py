@@ -53,13 +53,13 @@ class SMTP_emn:
             try: 
                print"port scan start......." 
                print Y+"="*25+W 
-               PortList= [25,465,587] 
+               self.PortList= [25,465,587] 
                if self.args.port:
                    self.port = self.args.port
                    print Y+"##-specific port",str(self.port)+W 
                    print"-"*40
                else:               
-                   for port in PortList:
+                   for port in self.PortList:
                        sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                        sock.settimeout(3)
                        result = sock.connect_ex((self.args.target, port))                    
@@ -94,7 +94,7 @@ class SMTP_emn:
                      try:
                         data = self.socke_25.recv(1024)
                      except socket.timeout:
-                         time.sleep(2)
+                         time.sleep(0.45)
                          print R+"Server "+W+Y+self.args.target+W+R+" Time out..."+W+'\n'
 			 if os.path.exists('SMTP_'+self.args.target):
                             os.remove('SMTP_'+self.args.target)
@@ -104,11 +104,15 @@ class SMTP_emn:
                      if self.args.user:
                         self.socke_25.send('HELO ' + self.args.target + '\r\n')
                         redata =  self.socke_25.recv(1024)
-			self.socke_25.send('STARTTLS'+'\n')
+			if self.port==25 or not self,args.SSL:
+                              pass
+                        else: 
+                             if self.port ==465 or self.port ==587 or self.args.SSL:
+		                self.socke_25.send('STARTTLS'+'\n')
                         self.socke_25.send('VRFY ' + self.args.user +'\r\n')                                        
                         final=  self.socke_25.recv(1024)                   
                         if "550" in final :
-                            print "[-]", self.args.target,"....",self.args.user ,"............[NOT Exists]"
+                            print "[-]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[NOT Exists]"
                             exit() 	
                         elif "I'll try my best" in final:
                              print Y+"[*]Target",self.args.target," Not vulnerable..."+W
@@ -117,7 +121,7 @@ class SMTP_emn:
                              exit()	
                         else:
                            if "252" in final :
-                              print R+"[+]", self.args.target,"....",self.args.user ,"............[Exists]"+W
+                              print R+"[+]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[  Exists  ]"+W 
                               exit()
        def worldusers(self):
                 try:  
@@ -125,9 +129,13 @@ class SMTP_emn:
                         if self.args.wordlist: 
                            for self.line in self.list:  
                                 self.socke_25.send('HELO '+'127.0.0.1 '+ '\r\n')
-                                redata =  self.socke_25.recv(1024) 
-                                time.sleep(1)  
-				self.socke_25.send('STARTTLS'+'\n')
+                                redata =  self.socke_25.recv(1024)
+                                if self.port==25 or not self,args.SSL:
+                                   pass
+                                else: 
+                                     if self.port ==465 or self.port ==587 or self.args.SSL:
+				        self.socke_25.send('STARTTLS'+'\n')
+                                time.sleep(.45)
                                 self.socke_25.send('VRFY '+ self.line  )                                                       
                                 final=  self.socke_25.recv(1024)
                                 name=self.line.split()
@@ -138,13 +146,18 @@ class SMTP_emn:
                                        os.remove('SMTP_'+self.args.target)
                                     exit()
                                 elif "550" in final :       
-                                    print "[-]", self.args.target,"....",name ,"............[NOT Exists]"                         
+                                    print "[-]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[NOT Exists]"  
+                                    if self.args.Verbose :
+                                       pass
+                                    else:
+                                        sys.stdout.write('\x1b[1A')
+                                        sys.stdout.write('\x1b[2K')
+                                          
                                 else:
                                    if "252" in final :
                                         with open('SMTP_'+self.args.target,'a') as self.append:
                                             self.append =self.append.write("[*] "+name+'\n')
-                                        print R+"[+]", self.args.target,"....",name ,"............[Exists]"+W
-                                    
+                                        print R+"[+]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[  Exists  ]"+W   
                            else:
                                print R+"\n\t*********END**OF**WORD**LIST*********" +W                                          
                                with open('SMTP_'+self.args.target,'r') as self.append:
@@ -161,11 +174,13 @@ class SMTP_emn:
 
        def parser(self):
            parser = argparse.ArgumentParser( description="Usage: <OPtion> <arguments> ")
-	   parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
+           parser = argparse.ArgumentParser(description="Example: ./Smtp-Vrfy.py -t 10.195.100.67 -w /usr/share/wordlists/rockyou.txt ")
            parser.add_argument( '-t',"--target"   ,metavar='' , action=None  ,help ="Target ip address or name ")
-	   parser.add_argument( '-u',"--user"   ,metavar='' , action=None  ,help ="for only one username")
+           parser.add_argument( '-u',"--user"   ,metavar='' , action=None  ,help ="for only one username")
            parser.add_argument( '-w',"--wordlist"   ,metavar='' , action=None  ,help ="read from wordlist same like rockyou.txt ")
-	   parser.add_argument( '-p',"--port"   ,metavar='' , action=None  ,help ="use  specific port ",type=int)
+           parser.add_argument( "--SSL"   , action=None  ,help ="Enable STARTTLS Command  between clinet and server ")
+           parser.add_argument( '-v ',"--Verbose"   , action='store_true'  ,help ="print all wordlist line by line ")
+           parser.add_argument( '-p',"--port"   ,metavar='' , action=None  ,help ="use  specific port ",type=int)
            self.args = parser.parse_args()
            if len(sys.argv)!=1 and len(sys.argv) != 3:
                pass
