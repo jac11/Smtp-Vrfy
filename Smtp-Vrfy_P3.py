@@ -111,7 +111,7 @@ class SMTP_emn:
                         self.socke_25.send('VRFY '.encode() + self.args.user.encode() +'\r\n'.encode())                                        
                         final= self.socke_25.recv(1024)                  
                         if "550".encode() in final :
-                            print ("[-]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[NOT Exists]")
+                            print ("[-]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(self.args.user) ,"............[NOT Exists]")
                             exit() 	
                         elif "I'll try my best".encode()in final:
                              print ( Y+"[*]Target",self.args.target," Not vulnerable..."+W)
@@ -120,7 +120,7 @@ class SMTP_emn:
                              exit()	
                         else:
                            if "252".encode() in final :
-                              print (R+"[+]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(name) ,"............[  Exists  ]"+W )
+                              print (R+"[+]", '{:<10}'.format(self.args.target),"....",'{:<12}'.format(self.args.user) ,"............[  Exists  ]"+W )
                               exit()
        def worldusers(self):
                 try:  
